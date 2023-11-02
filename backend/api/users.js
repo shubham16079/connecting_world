@@ -4,11 +4,8 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const auth = require('../middleware/auth');
-router.post('/create',auth, (req, res) => {
-    if (!req.decoded) {
-        console.log('authentication failed');
-        return res.status(401).json({ message: 'Authentication failed' });
-    }
+router.post('/create', (req, res) => {
+  
     const { username, email, password } = req.body;
   
     const newUser = new User({
