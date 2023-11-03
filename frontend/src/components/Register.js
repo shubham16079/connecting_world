@@ -31,7 +31,6 @@ function RegistrationForm() {
       })
       .catch((error) => {
         console.error(error);
-        // You can handle errors here, such as displaying an error message to the user.
       });
   };
 

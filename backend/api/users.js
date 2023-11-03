@@ -28,13 +28,7 @@ router.post('/create', (req, res) => {
         res.status(500).send('Error creating user');
     });
   });
-router.get('/', auth, async (req, res) => {
-    if (!req.decoded) {
-      return res.status(401).json({ message: 'Authentication failed' });
-    }
-  
-    const userId = req.body.id;
-  
+router.get('/', async (req, res) => {
     try {
       const user = await User.find().select('-password');
       if (!user) {
