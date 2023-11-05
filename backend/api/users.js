@@ -83,5 +83,32 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Error updating user' });
     }
   });
+
+  router.post('/login', async (req, res) => {
+    try {
+      const { email, password } = req.body;
   
+      const user = await User.findOne({ email });
+  
+      if (!user) {
+        return res.status(401).json({ message: 'Authentication failed' });
+      }
+
+    
+      if (password !== user.password) {
+        return res.status(401).json({ message: 'Authentication failed' });
+      }
+  
+    
+      const token = jwt.sign({ id: user._id }, config.secret, {
+        expiresIn: config.expiresIn,
+      });
+  
+      res.status(200).json({ user, token });
+    } catch (error) {
+      console.error('Error during login:', error);
+      res.status(500).json({ error: 'Error during login' });
+    }
+  });
+
   module.exports = router;

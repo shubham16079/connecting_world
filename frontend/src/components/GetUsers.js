@@ -27,7 +27,7 @@ function GetUsers() {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
+            <tr key={user._id}>
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>
