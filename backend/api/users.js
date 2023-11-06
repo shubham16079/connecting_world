@@ -111,4 +111,23 @@ router.get('/', async (req, res) => {
     }
   });
 
+  router.get('/me', auth, async (req, res) => {
+    try {
+  
+      if (!req.decoded) {
+        return res.status(401).json({ message: 'Authentication failed' });
+      }
+      const user = await User.findById(req.body.id).select('-password');
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      res.json(user);
+    } catch (error) {
+      console.error('Error getting user:', error);
+      res.status(500).json({ error: 'Error getting user' });
+    }
+  });
+
   module.exports = router;
