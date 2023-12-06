@@ -7,7 +7,10 @@ const ChatApp = () => {
   const socket = io('http://localhost:5000');
   console.log(socket);
 
-  useEffect(() => {
+  useEffect(() => 
+  {
+    const userData = { username: 'John Doe' };
+    socket.emit('user data', userData);
     socket.on('chat message', (msg) => {
       setMessages((prevMessages) => [...prevMessages, msg]);
     });
