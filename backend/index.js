@@ -5,8 +5,18 @@ const { join } = require('node:path');
 const { Server } = require('socket.io');
 const bodyParser = require('body-parser');
 const app = express();
+
+const port = 5000; 
+const router = express.Router();
+const usersRouter = require('./api/users');
+
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000"
+  }
+});
+
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.emit('hello', 'hello world from server side');
@@ -18,10 +28,6 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 });
-const port = 5000; 
-const router = express.Router();
-const usersRouter = require('./api/users');
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false,useNewUrlParser:false }));
 const mongoose = require('./db'); 

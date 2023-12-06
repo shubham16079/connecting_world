@@ -43,7 +43,10 @@
         window.scrollTo(0, document.body.scrollHeight);
     });
     socket.on('hello', (arg) => {
-        console.log(arg); 
+      const item = document.createElement('li');
+        item.textContent = arg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
     });
     </script>
   </body>
