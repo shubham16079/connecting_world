@@ -5,7 +5,6 @@ const ChatApp = () => {
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useState([]);
   const socket = io('http://localhost:5000');
-  console.log(socket);
 
   useEffect(() => 
   {
